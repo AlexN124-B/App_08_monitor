@@ -124,7 +124,7 @@ def comprobar_datos() -> int:
     Registra cada error con logging.error y cada semana de mantenimiento
     con logging.warning.
     """
-        errores = 0
+    errores = 0
     if len(DESCARGAS) != len(CAIDAS):
         logging.error("las listas tienen distinto número de semanas")
         errores += 1
