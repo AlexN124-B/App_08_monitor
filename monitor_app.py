@@ -3,6 +3,8 @@
 from typing import Final
 
 # Añadid aquí las importaciones que necesitéis.
+import logging
+import sys
 
 # ---------------------------------------------------------------------------
 # Datos de la aplicación. Sustituid los del ejemplo APP-00 por los vuestros.
@@ -122,7 +124,21 @@ def comprobar_datos() -> int:
     Registra cada error con logging.error y cada semana de mantenimiento
     con logging.warning.
     """
-    return 0                          # provisional
+        errores = 0
+    if len(DESCARGAS) != len(CAIDAS):
+        logging.error("las listas tienen distinto número de semanas")
+        errores += 1
+    for semana, (descargas, caidas) in enumerate(
+            zip(DESCARGAS, CAIDAS), start=1):
+        if descargas < 0 or caidas < 0:
+            logging.error("semana %d: valor negativo", semana)
+            errores += 1
+        elif descargas == 0:
+            logging.warning("semana %d: sin descargas (mantenimiento)", semana)
+        elif caidas > descargas:
+            logging.error("semana %d: más caídas que descargas", semana)
+            errores += 1
+    return errores
 
 
 # ---------------------------------------------------------------------------
