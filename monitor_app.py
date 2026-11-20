@@ -145,8 +145,21 @@ def comprobar_datos() -> int:
 # Menú y opciones. La opción 1 viene hecha y la 2 tiene dos errores.
 # ---------------------------------------------------------------------------
 def mostrar_menu() -> None:
-    """[Docstring: qué hace esta función.]"""
-    print(PENDIENTE)
+    """Muestra el menu principal de la aplicacion"""
+    while True:
+        print("=" * ANCHO)
+        print("MONITOR DE APP-00 · Agenda Escolar".center(ANCHO))
+        print("=" * ANCHO)
+        print("1. Listado semanal")
+        print("2. Resumen")
+        print("3. Estabilidad por semana")
+        print("4. Primera semana que alcanza un umbral")
+        print("5. Mejor racha sin problemas")
+        print("6. Previsión de crecimiento")
+        print("7. Consultar una semana")
+        print("8. Comprobar los datos")
+        print("9. Salir")
+
 
 
 def opcion_1_listado() -> None:
@@ -225,12 +238,59 @@ def opcion_8_comprobar() -> None:
 
 
 def main() -> None:
-    """[Docstring: qué hace la función principal.]"""
-    # Provisional: sustituidlo por el bucle del menú (tarea 2).
-    mostrar_menu()
-    opcion_1_listado()
-    opcion_2_resumen()
-    print(PENDIENTE)
+    """Ejecuta el menú principal del programa."""
+
+    logging.basicConfig(
+        level=logging.WARNING,
+        format="%(levelname)s: %(message)s"
+    )
+
+    errores = comprobar_datos()
+    if errores > 0:
+        sys.exit(
+            "Los datos tienen errores: corrígelos antes de continuar."
+        )
+
+    print(f"Monitor de estabilidad {VERSION_PROGRAMA} · {AUTORES}")
+    try:
+        while True:
+            mostrar_menu()
+
+            opcion = input("Opción: ")
+
+            try:
+                opcion = int(opcion)
+            except ValueError:
+                print(f"  «{opcion}» no es una opción.")
+                continue
+
+            match opcion:
+                case 1:
+                    opcion_1_listado()
+                case 2:
+                    opcion_2_resumen()
+                case 3:
+                    opcion_3_estabilidad()
+                case 4:
+                    opcion_4_umbral()
+                case 5:
+                    opcion_5_racha()
+                case 6:
+                    opcion_6_prevision()
+                case 7:
+                    opcion_7_consulta()
+                case 8:
+                    opcion_8_comprobar()
+                case OPCION_SALIR:
+                    respuesta = input("¿Salir del programa? (s/n): ")
+                    if respuesta.lower() == "s":
+                        break
+                case _:
+                    print(f"Elige una opción entre 1 y {OPCION_SALIR}.")
+    except KeyboardInterrupt:
+        print("\nPrograma interrumpido.")
+
+    print(f"Fin del monitor de {CODIGO}.")
 
 
 if __name__ == "__main__":
