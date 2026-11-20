@@ -1,4 +1,4 @@
-"""[Docstring del módulo: una sola línea que diga qué hace el programa.]"""
+"""Monitor de estabilidad de una aplicación móvil: analiza descargas y caídas semanales."""
 
 from typing import Final
 
