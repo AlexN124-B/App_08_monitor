@@ -1,4 +1,4 @@
-# Monitor de estabilidad de la aplicación APP-XX
+# Monitor de estabilidad de la aplicación APP-08
 
 <!-- Sustituid todo lo que aparece entre corchetes y borrad estos comentarios. -->
 
@@ -8,15 +8,15 @@ previsión de crecimiento, consulta de una semana y comprobación de los datos.
 
 **Módulo:** IC44 — Fundamentos de programación en Python
 **Unidad:** 2 — Estructuras de control, depuración y excepciones
-**Pareja:** [número]
-**Autores:** [usuario] · [usuario]
+**Pareja:** 08
+**Autores:** AlexN124-B · SebastianStancu
 
 ## Aplicación analizada
 
 | Dato | Valor |
 |---|---|
-| Código | [APP-XX] |
-| Nombre | [nombre] |
+| Código | APP-08 |
+| Nombre | Turnos de farmacia |
 | Semanas | 12 |
 
 ## Ejecución desde Docker Hub
@@ -28,7 +28,7 @@ pide datos por teclado, así que se ejecuta con `-it`.
 docker run --rm -it [usuario]/monitor-app-xx:1.0.0
 ```
 
-Página de la imagen: https://hub.docker.com/r/[usuario]/monitor-app-xx
+Página de la imagen: https://hub.docker.com/r/AlexN124-B/App_08_monitor
 
 ## Ejecución en local
 
