@@ -234,8 +234,19 @@ def opcion_3_estabilidad() -> None:
 
 
 def opcion_4_umbral() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Muestra la primera semana cuya tasa alcanza un umbral."""
+    
+    umbral = pedir_real("Umbral en caídas por mil: ", 0, 1000)
+    
+    for semana, (descargas, caidas) in enumerate(zip(DESCARGAS, CAIDAS), start=1):
+        if descargas == 0:
+            continue
+        tasa = tasa_caidas(descargas, caidas)
+        if tasa >= umbral:
+            print(f"Primera semana: {semana} ({tasa:.1f} ‰)")
+            break
+    else:
+        print(f"Ninguna semana alcanza {umbral:.1f} ‰")
 
 
 def opcion_5_racha() -> None:
