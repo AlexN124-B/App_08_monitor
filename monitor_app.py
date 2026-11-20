@@ -78,7 +78,16 @@ def pedir_entero(mensaje: str, minimo: int, maximo: int) -> int:
     Si se escribe algo que no es un entero o está fuera de rango, avisa y
     lo vuelve a pedir.
     """
-    return minimo                     # provisional
+    while True:
+        texto = input(mensaje)
+        try:
+            valor = int(texto)
+        except ValueError:
+            print(f" «{texto}» no es un número entero.")
+            continue
+        if minimo <= valor <= maximo:
+            return valor
+        print(f" Escribe un número entre {minimo} y {maximo}.")
 
 
 def pedir_real(mensaje: str, minimo: float, maximo: float) -> float:
@@ -87,7 +96,16 @@ def pedir_real(mensaje: str, minimo: float, maximo: float) -> float:
     Si se escribe algo que no es un número o está fuera de rango, avisa y
     lo vuelve a pedir.
     """
-    return minimo                     # provisional
+    while True:
+        texto = input(mensaje)
+        try:
+            valor = float(texto.replace(",", "."))
+        except ValueError:
+            print(f" «{texto}» no es un número.")
+            continue
+        if minimo <= valor <= maximo:
+            return valor
+        print(f" Escribe un número entre {minimo} y {maximo}.")
 
 
 def semana_valida(texto: str) -> int:
