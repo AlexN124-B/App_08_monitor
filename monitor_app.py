@@ -180,7 +180,7 @@ def opcion_2_resumen() -> None:
     activas = 0
     mas = 0
     semana_mas = 0
-    menos = 0
+    menos = float("inf")
     semana_menos = 0
     for semana, (descargas, caidas) in enumerate(
             zip(DESCARGAS, CAIDAS), start=1):
@@ -302,7 +302,7 @@ def main() -> None:
                     opcion_7_consulta()
                 case 8:
                     opcion_8_comprobar()
-                case OPCION_SALIR:
+                case _ if opcion == OPCION_SALIR:
                     respuesta = input("¿Salir del programa? (s/n): ")
                     if respuesta.lower() == "s":
                         break
