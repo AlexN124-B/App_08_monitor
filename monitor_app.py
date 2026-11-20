@@ -10,12 +10,12 @@ import sys
 # Datos de la aplicación. Sustituid los del ejemplo APP-00 por los vuestros.
 # ---------------------------------------------------------------------------
 CODIGO: Final[str] = "APP-08"
-NOMBRE: Final[str] = "Monitor de estabilidad"
+NOMBRE: Final[str] = "Turnos de Farmacia"
 # Una posición por semana, de la 1 a la 12. 0 descargas: app retirada.
-DESCARGAS: Final = [1_200, 1_350, 1_280, 1_500, 0, 1_720,
-                    2_050, 1_810, 1_980, 2_310, 2_200, 2_150]
-CAIDAS: Final = [14, 12, 15, 9, 0, 22,
-                 31, 8, 6, 9, 5, 4]
+DESCARGAS: Final = [1_960, 2_040, 2_000, 1_900, 1_880, 1_790,
+1_950, 1_840, 1_800, 0, 1_690, 1_730]
+CAIDAS: Final = [7, 14, 34, 27, 7, 7,
+44, 42, 8, 0, 21, 15]
 
 # ---------------------------------------------------------------------------
 # Datos del programa. Solo hay que cambiar AUTORES.
@@ -160,7 +160,7 @@ def comprobar_datos() -> int:
 def mostrar_menu() -> None:
     """Muestra el menu principal de la aplicacion"""
     print("=" * ANCHO)
-    print("MONITOR DE APP-00 · Agenda Escolar".center(ANCHO))
+    print("MONITOR DE APP-08 · Turnos de Farmacia".center(ANCHO))
     print("=" * ANCHO)
     print("1. Listado semanal")
     print("2. Resumen")
