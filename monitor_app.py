@@ -208,8 +208,30 @@ def opcion_2_resumen() -> None:
 
 
 def opcion_3_estabilidad() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Muestra el estado de cada semana y cuántas semanas hay de cada estado."""
+    estables = 0
+    aceptables = 0
+    revisar = 0
+    criticas = 0
+    mantenimiento = 0
+    for semana, (descargas, caidas) in enumerate(
+            zip(DESCARGAS, CAIDAS), start=1):
+        estado_semana = estado(descargas, caidas)
+        print(f"Semana {semana}: {estado_semana}")
+        match estado_semana:
+            case "Estable":
+                estables += 1
+            case "Aceptable":
+                aceptables += 1
+            case "Revisar":
+                revisar += 1
+            case "Crítica":
+                criticas += 1
+            case "Mantenimiento":
+                mantenimiento += 1
+    print("-" * ANCHO)
+    print(f"Estables: {estables} · Aceptables: {aceptables} · Revisar: {revisar}")
+    print(f"Críticas: {criticas} · Mantenimiento: {mantenimiento}")
 
 
 def opcion_4_umbral() -> None:
