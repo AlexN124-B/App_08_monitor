@@ -237,7 +237,7 @@ def opcion_4_umbral() -> None:
     """Muestra la primera semana cuya tasa alcanza un umbral."""
     
     umbral = pedir_real("Umbral en caídas por mil: ", 0, 1000)
-    
+
     for semana, (descargas, caidas) in enumerate(zip(DESCARGAS, CAIDAS), start=1):
         if descargas == 0:
             continue
@@ -250,8 +250,34 @@ def opcion_4_umbral() -> None:
 
 
 def opcion_5_racha() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Muestra la mejor racha de semanas sin problemas."""
+
+    mejor_inicio = 0
+    mejor_longitud = 0
+
+    inicio_actual = 0
+    longitud_actual = 0
+
+    for semana, (descargas, caidas) in enumerate(zip(DESCARGAS, CAIDAS), start=1):
+        estado_semana = estado(descargas, caidas)
+
+        if estado_semana in ("Estable", "Aceptable"):
+            if longitud_actual == 0:
+                inicio_actual = semana
+            longitud_actual += 1
+
+            if longitud_actual > mejor_longitud:
+                mejor_longitud = longitud_actual
+                mejor_inicio = inicio_actual
+        else:
+            longitud_actual = 0
+
+    if mejor_longitud > 0:
+        fin = mejor_inicio + mejor_longitud - 1
+        print(
+            f"Mejor racha: {mejor_longitud} semanas (de la {mejor_inicio} a la {fin})")
+    else:
+        print("No hay semanas sin problemas.")
 
 
 def opcion_6_prevision() -> None:
@@ -279,9 +305,7 @@ def main() -> None:
 
     errores = comprobar_datos()
     if errores > 0:
-        sys.exit(
-            "Los datos tienen errores: corrígelos antes de continuar."
-        )
+        sys.exit("Los datos tienen errores: corrígelos antes de continuar.")
 
     print(f"Monitor de estabilidad {VERSION_PROGRAMA} · {AUTORES}")
     try:
