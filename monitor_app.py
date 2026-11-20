@@ -60,7 +60,16 @@ def estado(descargas: int, caidas: int) -> str:
     Es uno de estos textos: "Estable", "Aceptable", "Revisar", "Crítica" o
     "Mantenimiento", este último si la semana no tiene descargas.
     """
-    return PENDIENTE                  # provisional
+    if descargas == 0:
+        return "Mantenimiento"
+    tasa = tasa_caidas(descargas, caidas)
+    if tasa < UMBRAL_ESTABLE:
+        return "Estable"
+    elif tasa < UMBRAL_ACEPTABLE:
+        return "Aceptable"
+    elif tasa < UMBRAL_REVISAR:
+        return "Revisar"
+    return "Crítica"
 
 
 def pedir_entero(mensaje: str, minimo: int, maximo: int) -> int:
