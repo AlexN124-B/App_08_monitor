@@ -39,6 +39,9 @@ OPCION_SALIR: Final[int] = 9
 # ---------------------------------------------------------------------------
 
 
+MAX_SEMANAS_PREVISION: Final[int] = 104
+
+
 # ---------------------------------------------------------------------------
 # Excepciones propias de la pareja. Aquí va SemanaNoValida (opción 7).
 # ---------------------------------------------------------------------------
@@ -281,8 +284,32 @@ def opcion_5_racha() -> None:
 
 
 def opcion_6_prevision() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Calcula cuándo se alcanza un objetivo de descargas."""
+
+    for descargas in reversed(DESCARGAS):
+        if descargas > 0:
+            descargas_actuales = descargas
+            break
+
+    print(
+        f"Descargas de la última semana activa: {descargas_actuales}")
+
+    objetivo = pedir_entero("Objetivo semanal de descargas: ", descargas_actuales + 1, 1_000_000)
+
+    crecimiento = pedir_real("Crecimiento semanal en %: ", 0.5, 50.0)
+
+    semanas = 0
+    descargas_previstas = float(descargas_actuales)
+
+    while descargas_previstas < objetivo:
+        semanas += 1
+        descargas_previstas *= (1 + crecimiento / 100)
+
+        if semanas > MAX_SEMANAS_PREVISION:
+            print(f"No se alcanza en {MAX_SEMANAS_PREVISION} semanas.")
+            break
+    else:
+        print(f"Se alcanza en {semanas} semanas ({descargas_previstas:.0f} descargas)")
 
 
 def opcion_7_consulta() -> None:
