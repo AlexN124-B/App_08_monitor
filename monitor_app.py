@@ -146,19 +146,18 @@ def comprobar_datos() -> int:
 # ---------------------------------------------------------------------------
 def mostrar_menu() -> None:
     """Muestra el menu principal de la aplicacion"""
-    while True:
-        print("=" * ANCHO)
-        print("MONITOR DE APP-00 · Agenda Escolar".center(ANCHO))
-        print("=" * ANCHO)
-        print("1. Listado semanal")
-        print("2. Resumen")
-        print("3. Estabilidad por semana")
-        print("4. Primera semana que alcanza un umbral")
-        print("5. Mejor racha sin problemas")
-        print("6. Previsión de crecimiento")
-        print("7. Consultar una semana")
-        print("8. Comprobar los datos")
-        print("9. Salir")
+    print("=" * ANCHO)
+    print("MONITOR DE APP-00 · Agenda Escolar".center(ANCHO))
+    print("=" * ANCHO)
+    print("1. Listado semanal")
+    print("2. Resumen")
+    print("3. Estabilidad por semana")
+    print("4. Primera semana que alcanza un umbral")
+    print("5. Mejor racha sin problemas")
+    print("6. Previsión de crecimiento")
+    print("7. Consultar una semana")
+    print("8. Comprobar los datos")
+    print("9. Salir")
 
 
 
