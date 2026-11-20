@@ -27,6 +27,7 @@ PENDIENTE: Final[str] = "  (opción pendiente de implementar)"
 # ---------------------------------------------------------------------------
 # Constantes comunes.
 # ---------------------------------------------------------------------------
+PRIMERA_SEMANA: Final[int] = 1
 ANCHO: Final[int] = 44
 POR_MIL: Final[int] = 1_000
 UMBRAL_ESTABLE: Final[float] = 5.0       # caídas por cada mil descargas
@@ -46,7 +47,8 @@ MAX_SEMANAS_PREVISION: Final[int] = 104
 # Excepciones propias de la pareja. Aquí va SemanaNoValida (opción 7).
 # ---------------------------------------------------------------------------
 
-
+class SemanaNoValida(Exception):
+    """La semana consultada no es un número de semana válido."""
 # ---------------------------------------------------------------------------
 # Funciones auxiliares. tasa_caidas viene hecha; el resto, con su docstring,
 # las completáis vosotros. No cambiéis sus cabeceras.
@@ -118,7 +120,15 @@ def semana_valida(texto: str) -> int:
 
     Lanza SemanaNoValida si no es un entero o está fuera de rango.
     """
-    return 1                          # provisional
+    try:
+        semana = int(texto)
+    except ValueError:
+        raise SemanaNoValida(f"«{texto}» no es un número de semana") from None
+    ultima_semana = len(DESCARGAS)
+    if not PRIMERA_SEMANA <= semana <= ultima_semana:
+        raise SemanaNoValida(
+            f"la semana {semana} no existe: hay de {PRIMERA_SEMANA} a {ultima_semana}")
+    return semana
 
 
 def comprobar_datos() -> int:
@@ -313,13 +323,42 @@ def opcion_6_prevision() -> None:
 
 
 def opcion_7_consulta() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Muestra los datos, el estado y la acción recomendada de una semana."""
+    texto = input(f"Semana (1-{len(DESCARGAS)}): ")
+    try:
+        semana = semana_valida(texto)
+    except SemanaNoValida as error:
+        print(f" No se puede consultar: {error}")
+        return
+    for numero, (descargas, caidas) in enumerate(
+            zip(DESCARGAS, CAIDAS), start=1):
+        if numero == semana:
+            break
+    estado_semana = estado(descargas, caidas)
+    match estado_semana:
+        case "Estable":
+            accion = "Sin acciones"
+        case "Aceptable":
+            accion = "Vigilar en la próxima versión"
+        case "Revisar":
+            accion = "Revisar los informes de errores"
+        case "Crítica":
+            accion = "Publicar una versión correctora urgente"
+        case "Mantenimiento":
+            accion = "La app no estuvo publicada esa semana"
+    print(f"Descargas: {descargas}")
+    print(f"Caídas: {caidas}")
+    print(f"Estado: {estado_semana}")
+    print(f"Acción: {accion}")
 
 
 def opcion_8_comprobar() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Comprueba los datos y muestra si son correctos."""
+    errores = comprobar_datos()
+    if errores == 0:
+        print(f"Datos correctos: {len(DESCARGAS)} semanas")
+    else:
+        print("Los datos tienen errores: corrígelos antes de continuar.")
 
 
 def main() -> None:
